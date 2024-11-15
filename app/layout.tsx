@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import './globals.css';
 import { Provider } from '@/components/ui/provider';
-import Head from 'next/head';
 
 const montserrat = Montserrat({
     weight: ['400', '500', '600', '700'],

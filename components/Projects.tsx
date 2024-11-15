@@ -31,9 +31,15 @@ const Projects = () => {
                         <TabsTrigger value="human-park">Human Park</TabsTrigger>
                         <TabsTrigger value="zed">ZED RUN</TabsTrigger>
                         <TabsTrigger value="vhs">VHS</TabsTrigger>
-                        <TabsTrigger value="creation-crate">Creation Crate</TabsTrigger>
-                        <TabsTrigger value="cevnn">Cevnn</TabsTrigger>
-                        <TabsTrigger value="cevnn-dashboard">Cevnn Dashboard</TabsTrigger>
+                        <TabsTrigger className="hidden lg:block" value="creation-crate">
+                            Creation Crate
+                        </TabsTrigger>
+                        <TabsTrigger className="hidden lg:block" value="cevnn">
+                            Cevnn
+                        </TabsTrigger>
+                        <TabsTrigger className="hidden lg:block" value="cevnn-dashboard">
+                            Cevnn Dashboard
+                        </TabsTrigger>
                     </TabsList>
                     {/* gameon */}
                     <TabsContent value="gameon">

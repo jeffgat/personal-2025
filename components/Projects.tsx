@@ -25,7 +25,7 @@ const Projects = () => {
                 <h2 className="text-4xl font-bold uppercase mb-8 text-gray-600 text-center">
                     Recent Projects
                 </h2>
-                <Tabs defaultValue="gameon" suppressHydrationWarning>
+                <Tabs defaultValue="gat-capital" suppressHydrationWarning>
                     <TabsList className="mb-2">
                         <TabsTrigger className="hidden lg:block" value="gat-capital">
                             Gat Capital

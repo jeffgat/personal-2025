@@ -63,8 +63,8 @@ const Projects = () => {
                             className="mt-8 w-full h-auto"
                             src="/images/gat-capital.png"
                             alt=""
-                            width={2516}
-                            height={1268}
+                            width={1302}
+                            height={1056}
                         />
                     </TabsContent>
                     {/* upside */}

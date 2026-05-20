@@ -13,7 +13,7 @@ function Intro() {
             <section className="flex flex-col justify-center h-screen">
                 <div className="flex items-end mb-4 lg:mb-6">
                     <h1 className={cn('flex space-x-3', headingSz)}>
-                        <span className='text-neutral-800'>{`Hello, I'm`}</span>
+                        <span className='text-neutral-800'>{`Hey, I'm`}</span>
                         <motion.span
                             transition={{ duration: 0.8, delay: 0.2 }}
                             initial={{ opacity: 0, y: 8 }}
@@ -31,7 +31,7 @@ function Intro() {
                             initial={{ opacity: 0, x: -8, y: -8 }}
                             animate={{ opacity: 1, x: 0, y: 0 }}
                             className={cn('text-blue-400 block', headingSz)}>
-                            Fullstack Developer
+                            Product Engineer
                         </motion.span>
                     </h1>
                     <h1 className={cn('flex space-x-3', headingSz)}>

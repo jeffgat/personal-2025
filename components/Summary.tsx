@@ -36,7 +36,7 @@ function Summary() {
                     Summary
                 </h2>
                 <div className="flex items-center justify-center mt-8 flex-col lg:flex-row relative z-10">
-                    <div className="h-full w-full md:w-[450px] rounded-md relative aspect-square">
+                    <div className="h-full w-full md:w-[540px] rounded-md relative aspect-square">
                         <Image
                             className="rounded-md"
                             src="/images/headshot.jpg"
@@ -48,15 +48,19 @@ function Summary() {
 
                     <div className="w-full lg:w-1/2 lg:px-8 mt-6 lg:mt-0">
                         <p className="mb-4">
-                            I began as a self-taught graphic designer, creating visuals
-                            across a wide spectrum. Working at an early stage startup
-                            taught me how to be involved in every part of the process of a
-                            project. And how to pick up new skills along the way.
+                            I started in graphic design before gradually moving into
+                            software engineering through early-stage startup work.
                         </p>
                         <p className="mb-4">
-                            Through that, I picked up front-end development and dove deep
-                            into web development. At a production level, I have worked on
-                            frontend, backend and mobile applications.
+                            Over the last 8 years I’ve worked across consumer products,
+                            realtime systems, mobile apps, ecommerce platforms, and
+                            blockchain applications with a strong focus on product
+                            quality, UX, and rapid iteration.
+                        </p>
+                        <p className="mb-4">
+                            Most of my work has been in small startup teams where I’ve
+                            contributed across frontend, backend, infrastructure, and
+                            product development.
                         </p>
                         <p className="font-semibold text-sm">{`Technologies that I've worked with in production apps:`}</p>
                         <div className="grid grid-cols-3 md:grid-cols-5 mt-6 gap-4">

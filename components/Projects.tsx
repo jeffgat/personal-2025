@@ -26,7 +26,7 @@ const Projects = () => {
                     Recent Projects
                 </h2>
                 <Tabs defaultValue="upside" suppressHydrationWarning>
-                    <TabsList className="mb-2">
+                    <TabsList className="mb-2 w-full sm:w-auto">
                         <TabsTrigger value="gat-capital">
                             Gat Capital
                         </TabsTrigger>

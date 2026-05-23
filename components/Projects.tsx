@@ -25,12 +25,12 @@ const Projects = () => {
                 <h2 className="text-4xl font-bold uppercase mb-8 text-gray-600 text-center">
                     Recent Projects
                 </h2>
-                <Tabs defaultValue="gat-capital" suppressHydrationWarning>
+                <Tabs defaultValue="upside" suppressHydrationWarning>
                     <TabsList className="mb-2">
-                        <TabsTrigger className="hidden lg:block" value="gat-capital">
+                        <TabsTrigger value="gat-capital">
                             Gat Capital
                         </TabsTrigger>
-                        <TabsTrigger className="hidden lg:block" value="upside">
+                        <TabsTrigger value="upside">
                             Upside
                         </TabsTrigger>
                         <TabsTrigger value="gameon">GameOn Live</TabsTrigger>

@@ -16,7 +16,7 @@ const Footer = () => {
                 <div className="flex items-center justify-center">
                     <MdCopyright className="text-gray-500 mr-2" />
                     <p className="font-sembiold text-gray-500">
-                        Jeffrey Gatbonton - 2024
+                        Jeffrey Gatbonton - 2026
                     </p>
                 </div>
                 <div className="flex items-center justify-center mt-4 gap-4">

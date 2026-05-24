@@ -72,10 +72,10 @@ const Projects = () => {
                         <p className="mb-2">
                             Upside is a web3 prediction market platform where users can
                             create, discover, and trade on markets using Privy smart
-                            wallets. I built the frontend for the app, including
-                            authentication, market feeds, voting and trading flows,
-                            dashboards, invite-gated onboarding, leaderboards, and
-                            realtime market discussion.
+                            wallets. I built the frontend and collaboratively designed
+                            the app experience, including authentication, market feeds,
+                            voting and trading flows, dashboards, invite-gated
+                            onboarding, leaderboards, and realtime market discussion.
                         </p>
                         <p className="mb-8">
                             Built using Next.js, React, TypeScript, Tailwind CSS, Privy,
@@ -94,9 +94,10 @@ const Projects = () => {
                     <TabsContent value="gameon">
                         <div>
                             <p className="mb-2">
-                                Built the frontend for a fantasy sports mobile platform
-                                in partnership with LaLiga serving thousands of users and
-                                hundreds of daily active users.
+                                Built the frontend and collaboratively designed a
+                                fantasy sports mobile platform in partnership with LaLiga
+                                serving thousands of users and hundreds of daily active
+                                users.
                             </p>
                             <p className="mb-2">
                                 Features included live events, chat, push notifications,
@@ -126,8 +127,9 @@ const Projects = () => {
                         <p className="mb-2">
                             Human Park was a AAA web3 game in development under
                             Virtually Human Studios. I worked as the sole frontend
-                            developer building high-fidelity marketing and product
-                            experiences inspired by modern game studio websites.
+                            developer and collaboratively designed high-fidelity
+                            marketing and product experiences inspired by modern game
+                            studio websites.
                         </p>
                         <p className="mb-8">
                             Built using React, Next.js, Prisma, Solidity, Hardhat,

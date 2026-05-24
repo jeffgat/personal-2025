@@ -58,9 +58,10 @@ function Summary() {
                             quality, UX, and rapid iteration.
                         </p>
                         <p className="mb-4">
-                            Most of my work has been in small startup teams where I’ve
-                            contributed across frontend, backend, infrastructure, and
-                            product development.
+                            Most of my work has been in small startup teams, including
+                            Techstars and a16z-backed companies, where I’ve contributed
+                            across frontend, backend, infrastructure, and product
+                            development.
                         </p>
                         <p className="font-semibold text-sm">{`Technologies that I've worked with in production apps:`}</p>
                         <div className="grid grid-cols-3 md:grid-cols-5 mt-6 gap-4">

@@ -61,10 +61,10 @@ const Projects = () => {
                         <ViewLiveButton href="https://www.gatcapital.xyz/" />
                         <Image
                             className="mt-8 w-full h-auto"
-                            src="/images/gat-capital.png"
+                            src="/images/gat-capital-performance.png"
                             alt=""
-                            width={1302}
-                            height={1056}
+                            width={1260}
+                            height={704}
                         />
                     </TabsContent>
                     {/* upside */}

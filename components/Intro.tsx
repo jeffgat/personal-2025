@@ -31,7 +31,7 @@ function Intro() {
                             initial={{ opacity: 0, x: -8, y: -8 }}
                             animate={{ opacity: 1, x: 0, y: 0 }}
                             className={cn('text-blue-400 block', headingSz)}>
-                            Product Engineer
+                            Full Stack Engineer
                         </motion.span>
                     </h1>
                     <h1 className={cn('flex space-x-3', headingSz)}>

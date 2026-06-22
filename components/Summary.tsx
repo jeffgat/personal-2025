@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
+import SlantDivider from '@/components/SlantDivider';
 
 const techStackData = [
     { img: '/images/javascript.png', text: 'Javascript' },
@@ -26,7 +27,7 @@ const techStackData = [
 
 const IconBlock = ({ img, text }: { img: string; text: string }) => (
     <div className="inline-flex items-center gap-2 rounded-full border border-sand-dark/30 bg-cream px-3 py-1.5">
-        <Image src={img} alt={`${text} logo`} width={18} height={18} />
+        <Image src={img} alt={`${text} logo`} width={18} height={18} unoptimized />
         <span className="text-xs font-semibold text-ink">{text}</span>
     </div>
 );
@@ -79,12 +80,14 @@ function Summary() {
                     </div>
                 </div>
             </div>
-            <div
+            <SlantDivider
                 className="absolute bottom-[-160px] left-0 h-[300px] w-full"
-                style={{
-                    backgroundImage:
-                        'linear-gradient(176deg, #EFE6D8 70%, #F7F4EF calc(70% + 2px))',
-                }}
+                topColor="#EFE6D8"
+                bottomColor="#F7F4EF"
+                leftY={0.64}
+                rightY={0.8}
+                stitchColor="#EFE6D8"
+                stitchOffset={16}
             />
         </section>
     );

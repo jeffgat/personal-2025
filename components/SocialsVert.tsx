@@ -15,19 +15,19 @@ function SocialsVert() {
             <a
                 href="https://github.com/jeffgat"
                 target="_blank"
-                className="text-orange-400 text-4xl hover:scale-105 hover:text-orange-500 transition-all">
+                className="text-flame text-4xl hover:scale-105 hover:text-flame-dark transition-all">
                 <FaGithub />
             </a>
             <a
                 href="https://www.linkedin.com/in/jeff-gatbonton/"
                 target="_blank"
-                className="text-blue-400 text-4xl hover:scale-105 hover:text-blue-500 transition-all">
+                className="text-sage-dark text-4xl hover:scale-105 hover:text-ink transition-all">
                 <FaLinkedin />
             </a>
             <a
                 href="https://dribbble.com/jeffgat"
                 target="_blank"
-                className="text-red-400 text-4xl hover:scale-105 hover:text-red-500 transition-all">
+                className="text-sand-dark text-4xl hover:scale-105 hover:text-ink transition-all">
                 <FaDribbble />
             </a>
         </motion.div>

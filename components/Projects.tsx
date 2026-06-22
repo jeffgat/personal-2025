@@ -62,7 +62,7 @@ const Projects = () => {
                         <Image
                             className="mt-8 w-full h-auto"
                             src="/images/gat-capital-performance.png"
-                            alt=""
+                            alt="Gat Capital trading dashboard showing realtime performance monitoring"
                             width={1260}
                             height={704}
                         />
@@ -85,7 +85,7 @@ const Projects = () => {
                         <Image
                             className="mt-8 w-full h-auto"
                             src="/images/upside.png"
-                            alt=""
+                            alt="Upside web3 prediction market platform interface"
                             width={1920}
                             height={1196}
                         />
@@ -221,7 +221,11 @@ const Projects = () => {
                         </p>
 
                         <div className="h-[600px] relative">
-                            <Image src="/images/creation-crate.png" alt="" fill />
+                            <Image
+                                src="/images/creation-crate.png"
+                                alt="Creation Crate ecommerce and subscription platform"
+                                fill
+                            />
                         </div>
                     </TabsContent>
                 </Tabs>

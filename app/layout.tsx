@@ -9,11 +9,38 @@ const montserrat = Montserrat({
     display: 'swap',
 });
 
+const title = 'Jeff Gatbonton — Full Stack Engineer';
+const description =
+    'Full stack engineer and former designer with 8+ years building consumer products, realtime systems, mobile apps, and web3 across early-stage startups including Techstars and a16z-backed companies.';
+const url = 'https://www.jeffgat.com/';
+
 export const metadata: Metadata = {
-    title: 'Jeff Gabonton',
-    description: 'Software engineer',
+    metadataBase: new URL(url),
+    title,
+    description,
     icons: {
         icon: '/favicon.png',
+    },
+    openGraph: {
+        title,
+        description,
+        url,
+        siteName: 'Jeff Gatbonton',
+        type: 'website',
+        images: [
+            {
+                url: '/images/headshot.jpg',
+                width: 1200,
+                height: 1200,
+                alt: 'Jeff Gatbonton',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        images: ['/images/headshot.jpg'],
     },
 };
 

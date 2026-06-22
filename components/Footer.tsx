@@ -15,7 +15,7 @@ const Footer = () => {
             <div className='flex flex-col h-full justify-end pb-12'>
                 <div className="flex items-center justify-center">
                     <MdCopyright className="text-gray-500 mr-2" />
-                    <p className="font-sembiold text-gray-500">
+                    <p className="font-semibold text-gray-500">
                         Jeffrey Gatbonton - 2026
                     </p>
                 </div>

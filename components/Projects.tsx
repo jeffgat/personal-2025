@@ -1,5 +1,4 @@
 'use client';
-import { Container } from '@chakra-ui/react';
 import { TabsContent, TabsList, TabsTrigger, Tabs } from '@/components/ui/tabs';
 import { ExternalLink } from 'lucide-react';
 import Image from 'next/image';
@@ -21,9 +20,9 @@ const Projects = () => {
 
     return (
         <section className="h-[1000px] mt-[160px]">
-            <Container maxW="120ch" suppressHydrationWarning>
+            <div className="mx-auto w-full max-w-[120ch] px-4" suppressHydrationWarning>
                 <h2 className="text-4xl font-bold uppercase mb-8 text-gray-600 text-center">
-                    Recent Projects
+                    Recent Work
                 </h2>
                 <Tabs defaultValue="upside" suppressHydrationWarning>
                     <TabsList className="mb-2 w-full sm:w-auto">
@@ -229,7 +228,7 @@ const Projects = () => {
                         </div>
                     </TabsContent>
                 </Tabs>
-            </Container>
+            </div>
         </section>
     );
 };

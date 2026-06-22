@@ -1,17 +1,17 @@
 'use client';
 
-import { Box } from '@chakra-ui/react';
 import { FaDribbble, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { MdCopyright } from 'react-icons/md';
 
 const Footer = () => {
     // const iconSize = 10;
     return (
-        <Box
-            zIndex={-1}
-            bgGradient="linear-gradient(-4deg, #EDF2F7 70%, #fafafa calc(70% + 2px))"
-            h="300px"
-            w="100%">
+        <div
+            className="-z-10 h-[300px] w-full"
+            style={{
+                backgroundImage:
+                    'linear-gradient(-4deg, #EDF2F7 70%, #fafafa calc(70% + 2px))',
+            }}>
             <div className='flex flex-col h-full justify-end pb-12'>
                 <div className="flex items-center justify-center">
                     <MdCopyright className="text-gray-500 mr-2" />
@@ -40,7 +40,7 @@ const Footer = () => {
                     </a>
                 </div>
             </div>
-        </Box>
+        </div>
     );
 };
 

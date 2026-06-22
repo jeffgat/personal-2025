@@ -1,5 +1,4 @@
 'use client';
-import { Box, Container } from '@chakra-ui/react';
 import Image from 'next/image';
 import React from 'react';
 
@@ -31,7 +30,7 @@ const IconBlock = ({ img, text }: { img: string; text: string }) => (
 function Summary() {
     return (
         <section className="bg-gray-100 py-8 relative">
-            <Container maxW="120ch">
+            <div className="mx-auto w-full max-w-[120ch] px-4">
                 <h2 className="text-4xl font-bold uppercase text-gray-600 text-center mb-0">
                     Summary
                 </h2>
@@ -71,14 +70,13 @@ function Summary() {
                         </div>
                     </div>
                 </div>
-            </Container>
-            <Box
-                position="absolute"
-                bottom="-160px"
-                left="0"
-                bgGradient="linear-gradient(176deg, #f3f4f6 70%, #fafafa calc(70% + 2px))"
-                h="300px"
-                w="100%"
+            </div>
+            <div
+                className="absolute bottom-[-160px] left-0 h-[300px] w-full"
+                style={{
+                    backgroundImage:
+                        'linear-gradient(176deg, #f3f4f6 70%, #fafafa calc(70% + 2px))',
+                }}
             />
         </section>
     );

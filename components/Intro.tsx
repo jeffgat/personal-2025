@@ -1,6 +1,5 @@
 'use client';
 import { cn } from '@/utils';
-import { Container } from '@chakra-ui/react';
 import { motion } from 'motion/react';
 import React from 'react';
 
@@ -9,7 +8,7 @@ function Intro() {
     const headingSz = 'text-2xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold';
 
     return (
-        <Container maxW="120ch" h="100vh">
+        <div className="mx-auto w-full max-w-[120ch] px-4">
             <section className="flex flex-col justify-center h-screen">
                 <div className="flex items-end mb-4 lg:mb-6">
                     <h1 className={cn('flex space-x-3', headingSz)}>
@@ -46,7 +45,7 @@ function Intro() {
                     </h1>
                 </div>
             </section>
-        </Container>
+        </div>
     );
 }
 

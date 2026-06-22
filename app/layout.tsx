@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import './globals.css';
-import { Provider } from '@/components/ui/provider';
 
 const montserrat = Montserrat({
     weight: ['400', '500', '600', '700'],
@@ -51,9 +50,7 @@ export default function RootLayout({
 }>) {
     return (
         <html suppressHydrationWarning lang="en" className={montserrat.className}>
-            <body>
-                <Provider>{children}</Provider>
-            </body>
+            <body>{children}</body>
         </html>
     );
 }

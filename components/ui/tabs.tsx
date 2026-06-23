@@ -14,7 +14,9 @@ const TabsList = React.forwardRef<
     <TabsPrimitive.List
         ref={ref}
         className={cn(
-            'relative inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-7 lg:border-b lg:border-sand-dark/20',
+            // Below 460px the tabs form an even 3-column grid; from 460px up they
+            // revert to the centered, content-width flex-wrap row.
+            'relative grid w-full grid-cols-3 items-start justify-center justify-items-center gap-x-2 gap-y-4 min-[460px]:inline-flex min-[460px]:w-auto min-[460px]:flex-wrap min-[460px]:items-center min-[460px]:gap-x-4 min-[460px]:gap-y-2 sm:gap-x-7 lg:border-b lg:border-sand-dark/20',
             className,
         )}
         {...props}

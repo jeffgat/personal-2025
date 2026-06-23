@@ -54,17 +54,32 @@ const Projects = () => {
                 <Tabs defaultValue="upside">
                     <div className="flex justify-center">
                         <TabsList className="mb-2">
-                            <TabsTrigger value="gat-capital">
+                            <ProjectTab value="gat-capital" year="2026">
                                 Gat Capital
-                            </TabsTrigger>
-                            <TabsTrigger value="upside">Upside</TabsTrigger>
-                            <TabsTrigger value="gameon">GameOn Live</TabsTrigger>
-                            <TabsTrigger value="human-park">Human Park</TabsTrigger>
-                            <TabsTrigger value="zed">ZED RUN</TabsTrigger>
-                            <TabsTrigger value="vhs">VHS</TabsTrigger>
-                            <TabsTrigger value="creation-crate">
+                            </ProjectTab>
+                            <ProjectTab value="upside" year="2024–2026">
+                                Upside
+                            </ProjectTab>
+                            <ProjectTab value="gameon" year="2023–2024">
+                                GameOn Live
+                            </ProjectTab>
+                            <ProjectTab value="human-park" year="2022–2023">
+                                Human Park
+                            </ProjectTab>
+                            <ProjectTab value="zed" year="2022–2023">
+                                ZED RUN
+                            </ProjectTab>
+                            <ProjectTab value="vhs" year="2022–2023">
+                                VHS
+                            </ProjectTab>
+                            {/* Lone 7th tab: span the full bottom row so it
+                                centers instead of sitting in column 1. */}
+                            <ProjectTab
+                                value="creation-crate"
+                                year="2017–2022"
+                                className="max-[459px]:col-span-3">
                                 Creation Crate
-                            </TabsTrigger>
+                            </ProjectTab>
                         </TabsList>
                     </div>
                     {/* gat capital */}
@@ -298,6 +313,30 @@ const Projects = () => {
         </MediaExpandContext.Provider>
     );
 };
+
+// A tab labelled with the project's working years above its name. The year
+// inherits the trigger's text color (muted → flame on hover/active) at reduced
+// opacity so it reads as secondary metadata while still tracking the tab state.
+const ProjectTab = ({
+    value,
+    year,
+    children,
+    className,
+}: {
+    value: string;
+    year: string;
+    children: ReactNode;
+    className?: string;
+}) => (
+    <TabsTrigger value={value} className={className}>
+        <span className="flex flex-col items-center gap-0.5">
+            <span className="text-[10px] font-semibold uppercase tracking-wider opacity-60">
+                {year}
+            </span>
+            <span>{children}</span>
+        </span>
+    </TabsTrigger>
+);
 
 // A framed "app window" around media so it reads as a deliberate object
 // rather than floating in the section. Brand-colored window controls.

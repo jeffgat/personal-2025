@@ -1,5 +1,6 @@
 'use client';
 import { TabsContent, TabsList, TabsTrigger, Tabs } from '@/components/ui/tabs';
+import FadeIn from '@/components/FadeIn';
 import {
     Atom,
     Blocks,
@@ -9,24 +10,50 @@ import {
     HardHat,
     KeyRound,
     Layers,
+    Maximize2,
+    Minimize2,
     Package,
     Radio,
     Zap,
     type LucideIcon,
 } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+    type ReactNode,
+} from 'react';
+
+// Shared so the expanded/collapsed media state survives tab switches (Radix
+// unmounts inactive tab panels, so a per-panel state would reset every switch).
+const MediaExpandContext = createContext<{
+    expanded: boolean;
+    toggle: () => void;
+}>({ expanded: false, toggle: () => {} });
 
 const Projects = () => {
+    const [mediaExpanded, setMediaExpanded] = useState(false);
+
     return (
-        <section className="mt-[160px] pb-24">
+        <MediaExpandContext.Provider
+            value={{
+                expanded: mediaExpanded,
+                toggle: () => setMediaExpanded((v) => !v),
+            }}>
+            <section className="mt-[160px] pb-24">
             <div className="mx-auto w-full max-w-[120ch] px-4">
-                <h2 className="text-4xl font-bold uppercase mb-8 text-ink-muted text-center">
-                    Recent Work
-                </h2>
+                <FadeIn>
+                    <h2 className="text-4xl font-bold uppercase mb-8 text-ink-muted text-center">
+                        Recent Work
+                    </h2>
+                </FadeIn>
+                <FadeIn delay={0.1}>
                 <Tabs defaultValue="upside">
                     <div className="flex justify-center">
-                        <TabsList className="mb-2 w-full sm:w-auto">
+                        <TabsList className="mb-2">
                             <TabsTrigger value="gat-capital">
                                 Gat Capital
                             </TabsTrigger>
@@ -35,9 +62,7 @@ const Projects = () => {
                             <TabsTrigger value="human-park">Human Park</TabsTrigger>
                             <TabsTrigger value="zed">ZED RUN</TabsTrigger>
                             <TabsTrigger value="vhs">VHS</TabsTrigger>
-                            <TabsTrigger
-                                className="hidden lg:block"
-                                value="creation-crate">
+                            <TabsTrigger value="creation-crate">
                                 Creation Crate
                             </TabsTrigger>
                         </TabsList>
@@ -48,10 +73,10 @@ const Projects = () => {
                             media={
                                 <Image
                                     className="h-auto w-full"
-                                    src="/images/gat-capital-performance.webp"
+                                    src="/images/gat-capital-performance-2.webp"
                                     alt="Gat Capital trading dashboard showing realtime performance monitoring"
-                                    width={1260}
-                                    height={704}
+                                    width={2494}
+                                    height={1478}
                                 />
                             }>
                             <p className="mb-2">
@@ -117,8 +142,13 @@ const Projects = () => {
                     {/* gameon */}
                     <TabsContent value="gameon">
                         <ProjectLayout
+                            vertical
                             media={
-                                <ProjectVideo name="gameon" title="GameOn Live" />
+                                <ProjectVideo
+                                    name="gameon"
+                                    title="GameOn Live"
+                                    vertical
+                                />
                             }>
                             <p className="mb-2">
                                 Built the frontend and collaboratively designed a fantasy
@@ -262,15 +292,27 @@ const Projects = () => {
                         </ProjectLayout>
                     </TabsContent>
                 </Tabs>
+                </FadeIn>
             </div>
         </section>
+        </MediaExpandContext.Provider>
     );
 };
 
 // A framed "app window" around media so it reads as a deliberate object
 // rather than floating in the section. Brand-colored window controls.
-const MediaFrame = ({ children }: { children: ReactNode }) => (
-    <div className="relative">
+const MediaFrame = ({
+    children,
+    className,
+    action,
+}: {
+    children: ReactNode;
+    className?: string;
+    // Optional overlay control (e.g. the expand toggle) pinned to the frame's
+    // top-right; rendered outside the clipping container so it isn't cut off.
+    action?: ReactNode;
+}) => (
+    <div className={`relative ${className ?? ''}`}>
         {/* one continuous offset border, two-tone: sand on the top/left (matching
             the section above), sage on the bottom/right (matching the section below) */}
         <div
@@ -278,23 +320,116 @@ const MediaFrame = ({ children }: { children: ReactNode }) => (
             className="pointer-events-none absolute -inset-3 rounded-2xl border-2 border-l-sand-soft border-t-sand-soft border-b-sage-soft border-r-sage-soft"
         />
         <div className="relative overflow-hidden rounded-xl">{children}</div>
+        {action}
     </div>
 );
 
 const ProjectLayout = ({
     media,
     children,
+    // Mobile-app demos are shot in portrait, so cap the frame to a phone-ish
+    // width and center it in the column instead of stretching it landscape-wide.
+    vertical = false,
 }: {
     media: ReactNode;
     children: ReactNode;
-}) => (
-    <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-10">
-        <div className="lg:w-1/2">
-            <MediaFrame>{media}</MediaFrame>
+    vertical?: boolean;
+}) => {
+    // Expanding hands the media the full row width and collapses the description.
+    // Landscape media animates its flex-basis to 100%; portrait phones don't go
+    // full-width (it'd look stranded), they just grow to a larger capped width.
+    // State is shared via context so it persists across tab switches.
+    const { expanded, toggle } = useContext(MediaExpandContext);
+    const descRef = useRef<HTMLDivElement>(null);
+
+    // Pin the description to the width it has (or will have) when open so its text
+    // can't reflow — and thrash its height — while the column animates; that reflow
+    // is what made the collapse look janky. We compute the open width from the row
+    // rather than reading offsetWidth, which would be 0 when reopening a panel that
+    // mounted already-collapsed (after switching tabs while expanded). The pin is
+    // released shortly after reopening so the resting layout stays responsive.
+    const handleToggle = () => {
+        const inner = descRef.current;
+        const willExpand = !expanded;
+        if (inner && window.matchMedia('(min-width: 1024px)').matches) {
+            const rowWidth = inner.parentElement?.parentElement?.clientWidth ?? 0;
+            const rem =
+                parseFloat(getComputedStyle(document.documentElement).fontSize) ||
+                16;
+            const openWidth = vertical
+                ? Math.min(28 * rem, rowWidth)
+                : (rowWidth - 40) / 2; // 40 = lg:gap-10 between the open columns
+            inner.style.width = `${openWidth}px`;
+            if (!willExpand) {
+                window.setTimeout(() => {
+                    if (descRef.current) descRef.current.style.width = '';
+                }, 520);
+            }
+        }
+        toggle();
+    };
+
+    const expandButton = (
+        <button
+            type="button"
+            onClick={handleToggle}
+            aria-pressed={expanded}
+            aria-label={expanded ? 'Collapse media' : 'Expand media'}
+            className="absolute right-2 top-2 z-10 hidden h-9 w-9 items-center justify-center rounded-lg border border-white/20 bg-ink/40 text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-ink/60 lg:inline-flex">
+            {expanded ? (
+                <Minimize2 size={16} aria-hidden="true" />
+            ) : (
+                <Maximize2 size={16} aria-hidden="true" />
+            )}
+        </button>
+    );
+
+    return (
+        <div
+            className={`flex flex-col gap-6 transition-[gap] duration-500 ease-in-out lg:flex-row lg:items-center ${
+                vertical ? 'lg:justify-center' : ''
+            } ${expanded ? 'lg:gap-0' : vertical ? 'lg:gap-14' : 'lg:gap-10'}`}>
+            <div
+                className={
+                    vertical
+                        ? 'flex w-full justify-center lg:w-auto'
+                        : `transition-[flex-basis] duration-500 ease-in-out ${
+                              expanded ? 'lg:basis-full' : 'lg:basis-1/2'
+                          }`
+                }>
+                <MediaFrame
+                    action={expandButton}
+                    className={
+                        vertical
+                            ? `max-w-full transition-[width] duration-500 ease-in-out ${
+                                  expanded ? 'w-[420px]' : 'w-[300px]'
+                              }`
+                            : ''
+                    }>
+                    {media}
+                </MediaFrame>
+            </div>
+            <div
+                className={`transition-[flex-basis] duration-500 ease-in-out lg:overflow-hidden ${
+                    expanded
+                        ? `pointer-events-none max-lg:hidden lg:max-h-0 ${
+                              vertical ? 'lg:basis-[0rem]' : 'lg:basis-[0%]'
+                          }`
+                        : vertical
+                          ? 'lg:max-w-md lg:basis-[28rem]'
+                          : 'lg:basis-1/2'
+                }`}>
+                <div
+                    ref={descRef}
+                    className={`transition-opacity duration-300 ease-in-out lg:w-full ${
+                        expanded ? 'lg:opacity-0' : 'lg:opacity-100'
+                    }`}>
+                    {children}
+                </div>
+            </div>
         </div>
-        <div className="lg:w-1/2">{children}</div>
-    </div>
-);
+    );
+};
 
 // Base for self-hosted video files. Empty = served from /public/videos locally;
 // set NEXT_PUBLIC_VIDEO_BASE to a CDN origin (e.g. https://media.jeffgat.com)
@@ -309,7 +444,15 @@ const VIDEO_BASE = process.env.NEXT_PUBLIC_VIDEO_BASE ?? '';
 // imperatively because React doesn't reliably reflect the muted prop to the DOM
 // property. Native controls stay on so visitors can unmute or scrub.
 // preload="metadata" keeps the initial load light.
-const ProjectVideo = ({ name, title }: { name: string; title: string }) => {
+const ProjectVideo = ({
+    name,
+    title,
+    vertical = false,
+}: {
+    name: string;
+    title: string;
+    vertical?: boolean;
+}) => {
     const ref = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
@@ -336,7 +479,10 @@ const ProjectVideo = ({ name, title }: { name: string; title: string }) => {
     }, []);
 
     return (
-        <div className="relative aspect-video w-full bg-black">
+        <div
+            className={`relative w-full bg-black ${
+                vertical ? 'aspect-[494/992]' : 'aspect-video'
+            }`}>
             <video
                 ref={ref}
                 src={`${VIDEO_BASE}/videos/${name}.mp4`}
@@ -435,7 +581,7 @@ const TechStack = ({ items }: { items: string[] }) => (
 
 const ViewLiveButton = ({ href }: { href: string }) => (
     <a
-        className="inline-flex items-center gap-2 rounded-md bg-flame px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-flame-dark"
+        className="inline-flex items-center gap-2 rounded-md border-2 border-flame px-4 py-2 text-sm font-semibold text-flame transition-colors hover:bg-flame hover:text-white"
         href={href}
         target="_blank"
         rel="noreferrer">

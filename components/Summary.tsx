@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React from 'react';
 import SlantDivider from '@/components/SlantDivider';
+import FadeIn from '@/components/FadeIn';
 
 const techStackData = [
     { img: '/images/javascript.png', text: 'Javascript' },
@@ -36,19 +37,30 @@ function Summary() {
     return (
         <section className="bg-sand-soft py-8 relative">
             <div className="mx-auto w-full max-w-[120ch] px-4">
-                <h2 className="text-4xl font-bold uppercase text-ink-muted text-center mb-0">
-                    Summary
-                </h2>
-                <div className="mt-8 relative z-10">
+                <FadeIn>
+                    <h2 className="text-4xl font-bold uppercase text-ink-muted text-center mb-0">
+                        Summary
+                    </h2>
+                </FadeIn>
+                <FadeIn className="mt-8 relative z-10" delay={0.1}>
                     <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 md:flex-row md:items-center md:gap-8">
-                        <div className="relative aspect-square w-full max-w-[220px] flex-none rounded-md">
-                            <Image
-                                className="rounded-md"
-                                src="/images/headshot.jpg"
-                                alt="Jeff Gatbonton headshot"
-                                fill
-                                sizes="220px"
+                        <div className="relative w-full max-w-[220px] flex-none">
+                            {/* offset border in the page background color, same
+                                technique as the project MediaFrame: a separate ring
+                                sitting -inset-3 behind the image */}
+                            <div
+                                aria-hidden="true"
+                                className="pointer-events-none absolute -inset-3 rounded-xl border-2 border-cream"
                             />
+                            <div className="relative aspect-square overflow-hidden rounded-md">
+                                <Image
+                                    className="rounded-md"
+                                    src="/images/headshot.jpg"
+                                    alt="Jeff Gatbonton headshot"
+                                    fill
+                                    sizes="220px"
+                                />
+                            </div>
                         </div>
                         <div className="flex-1">
                             <p className="mb-4">
@@ -78,7 +90,7 @@ function Summary() {
                             ))}
                         </div>
                     </div>
-                </div>
+                </FadeIn>
             </div>
             <SlantDivider
                 className="absolute bottom-[-160px] left-0 h-[300px] w-full"

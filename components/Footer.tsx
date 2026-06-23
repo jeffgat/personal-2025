@@ -7,7 +7,7 @@ import SlantDivider from '@/components/SlantDivider';
 const Footer = () => {
     // const iconSize = 10;
     return (
-        <div className="relative -z-10 h-[300px] w-full bg-sage-soft">
+        <div className="relative h-[300px] w-full bg-sage-soft">
             <SlantDivider
                 className="absolute inset-0 h-full w-full"
                 topColor="#F7F4EF"

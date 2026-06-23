@@ -14,3 +14,31 @@ html {
 body {
     font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
+
+/* Subtle slide + fade for tab panels as they switch in. Radix unmounts the
+   inactive panel, so the active one mounts fresh and replays this each switch. */
+@keyframes tab-content-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-tab-in {
+    animation: tab-content-in 0.4s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    @keyframes tab-content-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+}

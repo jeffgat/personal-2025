@@ -14,7 +14,7 @@ const TabsList = React.forwardRef<
     <TabsPrimitive.List
         ref={ref}
         className={cn(
-            'inline-flex min-h-9 flex-wrap items-center justify-center rounded-lg p-1 bg-sand/40',
+            'relative inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-7 lg:border-b lg:border-sand-dark/20',
             className,
         )}
         {...props}
@@ -29,7 +29,10 @@ const TabsTrigger = React.forwardRef<
     <TabsPrimitive.Trigger
         ref={ref}
         className={cn(
-            'hover:text-flame inline-flex items-center text-ink-muted justify-center whitespace-nowrap rounded-md px-4 py-1 text-sm font-semibold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-flame/15 data-[state=active]:text-flame-dark',
+            'group relative inline-flex items-center justify-center whitespace-nowrap px-1 pb-2.5 text-sm font-semibold tracking-wide text-ink-muted transition-colors duration-200 hover:text-flame focus-visible:outline-none focus-visible:text-flame disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-flame-dark',
+            // Animated underline indicator: grows from the center on the active
+            // tab (and previews partway on hover), replacing the old pill fill.
+            'after:pointer-events-none after:absolute after:inset-x-1 after:-bottom-px after:h-[2px] after:origin-center after:scale-x-0 after:rounded-full after:bg-current after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-50 data-[state=active]:after:scale-x-100',
             className,
         )}
         {...props}
@@ -44,7 +47,7 @@ const TabsContent = React.forwardRef<
     <TabsPrimitive.Content
         ref={ref}
         className={cn(
-            'mt-8 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 p-1',
+            'mt-8 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 p-1 animate-tab-in',
             className,
         )}
         {...props}

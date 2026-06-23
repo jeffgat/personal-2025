@@ -121,6 +121,46 @@ const Projects = () => {
                             />
                             <ViewLiveButton href="https://www.gatcapital.xyz/" />
                         </ProjectLayout>
+                        <CaseStudy
+                            sections={[
+                                {
+                                    kicker: 'Problem',
+                                    title: 'Backtests lie; live trading is unforgiving',
+                                    body: `A strategy can look great in a backtest and fall apart in production. The system needed one path from research to live trading — ingest, backtest, optimize, then execute — without the live code diverging from what was tested.`,
+                                },
+                                {
+                                    kicker: 'Design',
+                                    title: 'One engine, two modes, exact replay',
+                                    body: `Dry-run and live execution share identical logic, so what you backtest is what you trade. A live dashboard streams status, trades, and logs over WebSocket and overlays exact engine replays against live performance — with risk controls as first-class operational tooling.`,
+                                },
+                                {
+                                    kicker: 'Engineering',
+                                    title: 'Composable pipeline, streamed to the UI',
+                                    body: `Python/FastAPI services run simulation and live execution; DataBento feeds historical market-data ingestion; WebSockets stream state into a React/TypeScript dashboard for realtime monitoring; SQLite keeps runs durable and local. Ingestion → backtest → optimize → execute are separate, composable stages.`,
+                                },
+                                {
+                                    kicker: 'Outcome',
+                                    title: 'Supervised automation, live',
+                                    body: (
+                                        <>
+                                            An end-to-end pipeline from historical
+                                            data to supervised live trade
+                                            automation, with dry-run/live parity
+                                            and built-in risk controls — running
+                                            live at{' '}
+                                            <a
+                                                href="https://www.gatcapital.xyz/"
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="font-semibold text-flame underline decoration-flame/40 underline-offset-2 transition-colors hover:decoration-flame">
+                                                gatcapital.xyz
+                                            </a>
+                                            .
+                                        </>
+                                    ),
+                                },
+                            ]}
+                        />
                     </TabsContent>
                     {/* upside */}
                     <TabsContent value="upside">
@@ -130,8 +170,8 @@ const Projects = () => {
                             <p className="mb-2">
                                 Upside is a web3 prediction market platform where users
                                 can create, discover, and trade on markets using Privy
-                                smart wallets. I built the frontend and collaboratively
-                                designed the app experience, including authentication,
+                                smart wallets. I built the frontend and designed
+                                the app experience, including authentication,
                                 market feeds, voting and trading flows, dashboards,
                                 invite-gated onboarding, leaderboards, and realtime
                                 market discussion.
@@ -147,12 +187,35 @@ const Projects = () => {
                                     'Viem',
                                     'TanStack Query',
                                     'Zustand',
-                                    'Jotai',
                                     'Axios',
                                     'PostHog',
                                 ]}
                             />
                         </ProjectLayout>
+                        <CaseStudy
+                            sections={[
+                                {
+                                    kicker: 'Problem',
+                                    title: 'Crypto UX kills mainstream adoption',
+                                    body: `Prediction markets normally bury new users in wallets, seed phrases, gas, and jargon. Upside had to feel as familiar as Reddit — “day trade the internet” — while staying fully on-chain underneath.`,
+                                },
+                                {
+                                    kicker: 'Design',
+                                    title: 'Hide the chain, keep it social',
+                                    body: `I designed an invite-gated, feed-first experience: Privy smart wallets so users never touch seed phrases or gas, familiar voting and trading flows, plus leaderboards and realtime discussion to drive the social loop.`,
+                                },
+                                {
+                                    kicker: 'Engineering',
+                                    title: 'State layered for realtime',
+                                    body: `On Next.js/React/TypeScript I split state by job — TanStack Query for server cache, Zustand for UI and wallet state — so feeds, trades, and wallet status stay in sync without over-fetching. Wagmi/Viem handle chain reads and writes.`,
+                                },
+                                {
+                                    kicker: 'Outcome',
+                                    title: 'Shipped end-to-end to production',
+                                    body: `Authentication, market feeds, voting and trading, dashboards, invite-gated onboarding, leaderboards, and realtime discussion all shipped to production across multiple invite seasons.`,
+                                },
+                            ]}
+                        />
                     </TabsContent>
                     {/* gameon */}
                     <TabsContent value="gameon">
@@ -166,7 +229,7 @@ const Projects = () => {
                                 />
                             }>
                             <p className="mb-2">
-                                Built the frontend and collaboratively designed a fantasy
+                                Built the frontend and designed a fantasy
                                 sports mobile platform in partnership with LaLiga serving
                                 thousands of users and hundreds of daily active users.
                             </p>
@@ -194,7 +257,7 @@ const Projects = () => {
                             <p className="mb-2">
                                 Human Park was a AAA web3 game in development under
                                 Virtually Human Studios. I worked as the sole frontend
-                                developer and collaboratively designed high-fidelity
+                                developer and designed high-fidelity
                                 marketing and product experiences inspired by modern game
                                 studio websites.
                             </p>
@@ -615,6 +678,58 @@ const TechStack = ({ items }: { items: string[] }) => (
                 {t}
             </span>
         ))}
+    </div>
+);
+
+// Accent palette for case-study cards. Full literal class strings so Tailwind's
+// JIT picks them up; one accent per numbered step.
+const CASE_ACCENTS = [
+    { text: 'text-flame', border: 'border-flame' },
+    { text: 'text-sage-dark', border: 'border-sage-dark' },
+    { text: 'text-sand-darker', border: 'border-sand-darker' },
+    { text: 'text-ink-muted', border: 'border-ink-muted' },
+] as const;
+
+type CaseSection = { kicker: string; title: string; body: ReactNode };
+
+// A four-step "problem → design → engineering → outcome" breakdown rendered full
+// width below a project's media/intro. Lives outside ProjectLayout so the media
+// expand/collapse doesn't touch it. Each card is hairline-topped in its accent.
+const CaseStudy = ({ sections }: { sections: CaseSection[] }) => (
+    <div className="mt-12 lg:mt-16">
+        <div className="mb-6 flex items-center gap-3">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-muted">
+                Case study
+            </span>
+            <span aria-hidden="true" className="h-px flex-1 bg-sand-dark/25" />
+        </div>
+        <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+            {sections.map((s, i) => {
+                const accent = CASE_ACCENTS[i % CASE_ACCENTS.length];
+                return (
+                    <div
+                        key={s.kicker}
+                        className={`border-t-2 pt-4 ${accent.border}`}>
+                        <div className="mb-2 flex items-baseline gap-2">
+                            <span
+                                className={`text-[10px] font-bold tabular-nums ${accent.text}`}>
+                                {String(i + 1).padStart(2, '0')}
+                            </span>
+                            <span
+                                className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${accent.text}`}>
+                                {s.kicker}
+                            </span>
+                        </div>
+                        <h3 className="mb-1.5 text-base font-bold text-ink">
+                            {s.title}
+                        </h3>
+                        <p className="text-sm leading-relaxed text-ink-muted">
+                            {s.body}
+                        </p>
+                    </div>
+                );
+            })}
+        </div>
     </div>
 );
 

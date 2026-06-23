@@ -76,8 +76,8 @@ function Summary() {
                             <p>
                                 Most of my work has been in small startup teams,
                                 including Techstars and a16z-backed companies, where I’ve
-                                contributed across frontend, backend, infrastructure, and
-                                product development.
+                                contributed across design, frontend, backend,
+                                infrastructure, and product development.
                             </p>
                         </div>
                     </div>
